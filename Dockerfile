@@ -1,4 +1,4 @@
-FROM ubuntu:22.10
+FROM jupyter/minimal-notebook:latest
 
 RUN apt-get update && apt-get install -y vim
 
