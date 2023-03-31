@@ -74,6 +74,7 @@ RUN wget -P /tmp/env https://raw.githubusercontent.com/jupyterhub/repo2docker/ma
 #COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/environment.lock /tmp/env/environment.lock
 
 RUN wget -P /tmp https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/install-base-env.bash
+RUN chmod a+x /tmp/install-base-env.bash
 #COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/install-base-env.bash /tmp/install-base-env.bash
 
 # ensure root user after build scripts
