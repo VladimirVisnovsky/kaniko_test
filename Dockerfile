@@ -69,11 +69,13 @@ ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
 
 #COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/activate-conda.sh /etc/profile.d/activate-conda.sh
 RUN wget -P /etc/profile.d https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/activate-conda.sh
+RUN chmod a+x /etc/profile.d/activate-conda.sh
 
 RUN wget -P /tmp/env https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/environment.py-3.7-linux-64.lock -O environment.lock
+RUN chmod a+x /tmp/env/environment.lock
 #COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/environment.lock /tmp/env/environment.lock
 
-RUN wget -P /tmp https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/install-base-env.bash
+RUN wget -P /tmp https://raw.githubusercontent.com/jupyterhub/repo2docker/e0d5b9bb63a7908b4edd9e6b6d5ca51d47fd9aaf/repo2docker/buildpacks/conda/install-base-env.bash
 RUN chmod a+x /tmp/install-base-env.bash
 #COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/install-base-env.bash /tmp/install-base-env.bash
 
@@ -136,8 +138,10 @@ USER ${NB_USER}
 # Add entrypoint
 ENV PYTHONUNBUFFERED=1
 RUN wget -P /usr/local/bin https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/python3-login
+RUN chmod a+x /usr/local/bin/python3-login
 # COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/python3-login /usr/local/bin/python3-login
 RUN wget -P /usr/local/bin https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/repo2docker-entrypoint
+RUN chmod a+x /usr/local/bin/repo2docker-entrypoint
 # COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 
