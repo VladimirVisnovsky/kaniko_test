@@ -65,11 +65,11 @@ ENV KERNEL_PYTHON_PREFIX ${NB_PYTHON_PREFIX}
 ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
 # If scripts required during build are present, copy them
 
-COPY --chown=0:0 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e11-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-cc4a92 /etc/profile.d/activate-conda.sh
+COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/activate-conda.sh /etc/profile.d/activate-conda.sh
 
-COPY --chown=0:0 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e11-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2epy-2d3-2e7-2elock-afa4b0 /tmp/env/environment.lock
+COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/environment.lock /tmp/env/environment.lock
 
-COPY --chown=0:0 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e11-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dbase-2denv-2ebash-f7702e /tmp/install-base-env.bash
+COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/install-base-env.bash /tmp/install-base-env.bash
 RUN TIMEFORMAT='time: %3R' \
 bash -c 'time /tmp/install-base-env.bash' && \
 rm -rf /tmp/install-base-env.bash /tmp/env
@@ -128,8 +128,8 @@ USER ${NB_USER}
 # Add start script
 # Add entrypoint
 ENV PYTHONUNBUFFERED=1
-COPY /python3-login /usr/local/bin/python3-login
-COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/python3-login /usr/local/bin/python3-login
+COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 
 # Specify the default command to run
