@@ -76,6 +76,9 @@ RUN wget -P /tmp/env https://raw.githubusercontent.com/jupyterhub/repo2docker/ma
 RUN wget -P /tmp https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/install-base-env.bash
 #COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/install-base-env.bash /tmp/install-base-env.bash
 
+# ensure root user after build scripts
+USER root
+
 RUN TIMEFORMAT='time: %3R' \
 bash -c 'time /tmp/install-base-env.bash' && \
 rm -rf /tmp/install-base-env.bash /tmp/env
@@ -83,9 +86,6 @@ rm -rf /tmp/install-base-env.bash /tmp/env
 RUN mkdir -p ${NPM_DIR} && \
 chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
 
-
-# ensure root user after build scripts
-USER root
 
 # Allow target path repo is cloned to be configurable
 ARG REPO_DIR=${HOME}
