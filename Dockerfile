@@ -132,18 +132,22 @@ LABEL repo2docker.ref="None"
 LABEL repo2docker.repo="https://github.com/EGI-Federation/binder-example"
 LABEL repo2docker.version="2022.10.0"
 
-# We always want containers to run as non-root
-USER ${NB_USER}
 
 # Add start script
 # Add entrypoint
 ENV PYTHONUNBUFFERED=1
 RUN wget -P /usr/local/bin https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/python3-login
 RUN chmod a+x /usr/local/bin/python3-login
-# COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/python3-login /usr/local/bin/python3-login
+#COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/python3-login /usr/local/bin/python3-login
 RUN wget -P /usr/local/bin https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/repo2docker-entrypoint
 RUN chmod a+x /usr/local/bin/repo2docker-entrypoint
-# COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+#COPY /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+
+
+# We always want containers to run as non-root
+USER ${NB_USER}
+
+
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 
 # Specify the default command to run
