@@ -117,8 +117,8 @@ ENV CONDA_DEFAULT_ENV ${KERNEL_PYTHON_PREFIX}
 # ensure root user after preassemble scripts
 USER root
 
-# Copy stuff.
-COPY --chown=0:0 src/ ${REPO_DIR}
+# Copy stuff. Do not there is no src --<<
+# COPY --chown=0:0 src/ ${REPO_DIR}
 
 # Run assemble scripts! These will actually turn the specification
 # in the repository into an image.
