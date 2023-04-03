@@ -71,7 +71,7 @@ ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
 RUN wget -P /etc/profile.d https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/activate-conda.sh
 RUN chmod a+x /etc/profile.d/activate-conda.sh
 
-RUN wget -P /tmp/env https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/environment.py-3.7-linux-64.lock -O environment.lock
+RUN wget -P https://raw.githubusercontent.com/jupyterhub/repo2docker/main/repo2docker/buildpacks/conda/environment.py-3.7-linux-64.lock -O /tmp/env/environment.lock
 RUN chmod a+x /tmp/env/environment.lock
 #COPY --chown=0:0 /usr/local/lib/python3.11/site-packages/repo2docker/buildpacks/conda/environment.lock /tmp/env/environment.lock
 
